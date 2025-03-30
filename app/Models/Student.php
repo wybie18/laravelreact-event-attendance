@@ -8,6 +8,7 @@ class Student extends Model
 {
     protected $fillable = [
         'rfid_uid',
+        'student_id',
         'first_name',
         'middle_name',
         'last_name',

@@ -27,4 +27,10 @@ class Semester extends Model
     {
         return $query->where('active', true);
     }
+
+    public function activate()
+    {
+        Semester::where('id', '!=', $this->id)->update(['active' => false]);
+        $this->update(['active' => true]);
+    }
 }
