@@ -17,8 +17,8 @@ class SemesterResource extends JsonResource
         return [
             'id'         => $this->id,
             'name'       => $this->name,
-            'start'      => (new Carbon($this->start))->format('M d, Y'),
-            'end'        => (new Carbon($this->end))->format('M d, Y'),
+            'start'      => (new Carbon($this->start))->format('Y-m-d'),
+            'end'        => (new Carbon($this->end))->format('Y-m-d'),
             'active'     => $this->active,
             'created_at' => (new Carbon($this->created_at))->format('M d, Y'),
             'updated_at' => (new Carbon($this->updated_at))->format('M d, Y'),

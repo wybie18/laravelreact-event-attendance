@@ -23,8 +23,8 @@ class StudentResource extends JsonResource
             'last_name'   => $this->last_name,
             'email'       => $this->email,
             'year_level'  => $this->year_level,
-            'created_at'  => (new Carbon($this->created_at))->format('M d, Y'),
-            'updated_at'  => (new Carbon($this->updated_at))->format('M d, Y'),
+            'created_at'  => (new Carbon($this->created_at))->format('Y/d/m, h:i:s'),
+            'updated_at'  => (new Carbon($this->updated_at))->format('Y/d/m, h:i:s'),
         ];
     }
 }

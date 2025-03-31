@@ -112,7 +112,7 @@ export default function Show({ student }) {
                                             <span className="font-medium">Created:</span>
                                         </div>
                                         <p className="mt-1 pl-6 group-hover:text-green-700 transition-colors">
-                                            {new Date(student.created_at).toLocaleString()}
+                                            {student.created_at}
                                         </p>
                                     </div>
 
@@ -121,7 +121,7 @@ export default function Show({ student }) {
                                             <span className="font-medium">Last Updated:</span>
                                         </div>
                                         <p className="mt-1 pl-6 group-hover:text-green-700 transition-colors">
-                                            {new Date(student.updated_at).toLocaleString()}
+                                            {student.updated_at}
                                         </p>
                                     </div>
                                 </div>

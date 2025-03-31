@@ -16,10 +16,14 @@ class EventSlotResource extends JsonResource
     {
         return [
             'id'         => $this->id,
-            'event'      => new EventResource($this->semeter),
+            'event'      => [
+                'id'   => $this->event_id,
+                'name' => $this->event->name,
+                'date' => $this->event->date,
+            ],
             'slot_type'  => $this->slot_type,
-            'start'      => $this->start,
-            'end'        => $this->end,
+            'start'      => (new Carbon($this->start))->format('H:i'),
+            'end'        => (new Carbon($this->end))->format('H:i'),
             'created_at' => (new Carbon($this->created_at))->format('M d, Y'),
             'updated_at' => (new Carbon($this->updated_at))->format('M d, Y'),
         ];

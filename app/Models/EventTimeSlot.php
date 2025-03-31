@@ -24,7 +24,7 @@ class EventTimeSlot extends Model
         return $this->belongsTo(Event::class);
     }
 
-    public function attendance(){
-        return $this->hasMany(Attendance::class);
+    public function attendances(){
+        return $this->hasMany(Attendance::class, 'time_slot_id');
     }
 }

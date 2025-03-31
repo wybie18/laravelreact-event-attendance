@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -13,16 +12,23 @@ class Student extends Model
         'middle_name',
         'last_name',
         'email',
-        'year_level'
+        'year_level',
     ];
 
-    public function attendances(){
+    public function attendances()
+    {
         return $this->hasMany(Attendance::class, 'student_rfid_uid', 'rfid_uid');
     }
-    
+
     public function getFullNameAttribute()
     {
-        return $this->last_name . ' ' . $this->first_name. $this->middle_name ? ' ' . $this->middle_name : '';
+        $fullName = "{$this->last_name}, {$this->first_name}";
+
+        if (! empty($this->middle_name)) {
+            $fullName .= " {$this->middle_name}";
+        }
+
+        return $fullName;
     }
 
     public function getAttendanceStatusForSlot($timeSlotId)

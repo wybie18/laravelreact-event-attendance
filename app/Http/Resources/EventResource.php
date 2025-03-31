@@ -16,12 +16,13 @@ class EventResource extends JsonResource
     {
         return [
             'id'          => $this->id,
-            'semester'    => new SemesterResource($this->semeter),
+            'semester'    => new SemesterResource($this->semester),
+            'timeSlots'   => EventSlotResource::collection($this->timeSlots),
             'name'        => $this->name,
-            'date'        => (new Carbon($this->date))->format('M d, Y'),
+            'date'        => (new Carbon($this->date))->format('Y-m-d'),
             'description' => $this->description,
-            'created_at' => (new Carbon($this->created_at))->format('M d, Y'),
-            'updated_at' => (new Carbon($this->updated_at))->format('M d, Y'),
+            'created_at'  => (new Carbon($this->created_at))->format('M d, Y'),
+            'updated_at'  => (new Carbon($this->updated_at))->format('M d, Y'),
         ];
     }
 }

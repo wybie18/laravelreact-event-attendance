@@ -1,7 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventResource;
 use App\Http\Resources\StudentResource;
+use App\Models\Event;
+use App\Models\Semester;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -27,7 +30,7 @@ class StudentController extends Controller
             });
         }
 
-        if($year_level = request('year_level')){
+        if ($year_level = request('year_level')) {
             $query->where('year_level', $year_level);
         }
 
