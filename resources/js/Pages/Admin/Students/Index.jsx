@@ -5,10 +5,12 @@ import { Head, Link, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { FiSearch, FiDownload, FiUpload, FiFilter, FiUser, FiTrash2, FiEdit, FiEye, FiX } from 'react-icons/fi';
 import DeleteForm from './Modal/DeleteForm';
+import ImportModal from './Modal/ImportModal';
 
 export default function Index({ students, queryParams = null }) {
     queryParams = queryParams || {};
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [importModalOpen, setImportModalOpen] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showFilters, setShowFilters] = useState(false);
 
@@ -26,9 +28,17 @@ export default function Index({ students, queryParams = null }) {
         setSelectedStudent(null);
     };
 
+    const closeImportModal = () => {
+        setImportModalOpen(false);
+    };
+
     const handleDeleteClick = (student) => {
         setSelectedStudent(student);
         setDeleteModalOpen(true);
+    };
+
+    const handleImportClick = () => {
+        setImportModalOpen(true);
     };
 
     const searchFieldChanged = (name, value) => {
@@ -65,25 +75,11 @@ export default function Index({ students, queryParams = null }) {
     }
 
     const handleExportStudents = () => {
-        window.location.href = route('students.export', queryParams);
-    }
-
-    const handleImportClick = () => {
-        document.getElementById('importFileInput').click();
-    }
-
-    const handleFileImport = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        const formData = new FormData();
-        formData.append('file', file);
-
-        router.post(route('students.import'), formData, {
-            onSuccess: () => {
-                e.target.value = '';
-            }
-        });
+        const params = new URLSearchParams();
+        if (queryParams?.search) params.append('search', queryParams.search);
+        if (queryParams?.year_level) params.append('year_level', queryParams.year_level);
+        
+        window.location.href = `${route('students.export')}?${params.toString()}`;
     }
 
     const toggleFilters = () => {
@@ -151,13 +147,6 @@ export default function Index({ students, queryParams = null }) {
                                             <FiUpload className="mr-2 h-4 w-4" />
                                             <span className="hidden sm:inline">Import</span>
                                         </button>
-                                        <input
-                                            id="importFileInput"
-                                            type="file"
-                                            accept=".csv,.xlsx,.xls"
-                                            className="hidden"
-                                            onChange={handleFileImport}
-                                        />
 
                                         <button
                                             onClick={handleExportStudents}
@@ -338,6 +327,7 @@ export default function Index({ students, queryParams = null }) {
             </div>
 
             <DeleteForm openModal={deleteModalOpen} closeModal={closeDeleteModal} student={selectedStudent} />
+            <ImportModal openModal={importModalOpen} closeModal={closeImportModal} />
         </AuthenticatedLayout>
     );
 }

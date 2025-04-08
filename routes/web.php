@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\StudentController;
@@ -23,7 +24,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/download/template', [FileController::class, 'download'])->name('excel.template');
+
     Route::resource('/students', StudentController::class);
+    Route::get('/students/excel/export', [StudentController::class, 'exportStudents'])->name('students.export');
+    Route::post('/students/excel/import', [StudentController::class, 'importStudents'])->name('students.import');
     Route::get('/semesters', [SemesterController::class, 'index'])->name('semesters.index');
     Route::post('/semesters', [SemesterController::class, 'store'])->name('semesters.store');
     Route::put('/semesters/{semester}', [SemesterController::class, 'update'])->name('semesters.update');
@@ -35,6 +40,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/attendances/{attendance}', [AttendanceController::class, 'update'])->name('attendances.update');
 
     Route::get('/records', [StudentController::class, 'records'])->name('records');
+    Route::get('/records/export', [StudentController::class, 'exportRecords'])->name('records.export');
+
+
 });
 
 Route::middleware('auth')->group(function () {

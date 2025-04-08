@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router, usePage } from '@inertiajs/react';
 import { useState, useMemo } from 'react';
-import { FiSearch, FiFilter, FiCheck, FiX } from 'react-icons/fi';
+import { FiSearch, FiFilter, FiCheck, FiX, FiDownload } from 'react-icons/fi';
 
 export default function Index({ records, semesterEvents, semesters, currentSemester, queryParams = null }) {
     queryParams = queryParams || {};
@@ -83,6 +83,15 @@ export default function Index({ records, semesterEvents, semesters, currentSemes
             .join(" ")
     }
 
+    const handleExport = () => {
+        const params = new URLSearchParams();
+        if (queryParams?.search) params.append('search', queryParams.search);
+        if (queryParams?.year_level) params.append('year_level', queryParams.year_level);
+        if (queryParams?.semester) params.append('semester', queryParams.semester);
+
+        window.location.href = `${route('records.export')}?${params.toString()}`;
+    };
+
     return (
         <AuthenticatedLayout
             header={
@@ -120,6 +129,14 @@ export default function Index({ records, semesterEvents, semesters, currentSemes
                                                 {getActiveFiltersCount()}
                                             </span>
                                         )}
+                                    </button>
+                                    <div className="hidden sm:block h-8 w-px bg-gray-200"></div>
+                                    <button
+                                        onClick={handleExport}
+                                        className="inline-flex items-center rounded-md border border-green-600 bg-white px-4 py-2 text-sm font-medium text-green-600 shadow-sm hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors"
+                                    >
+                                        <FiDownload className="mr-2 h-4 w-4" />
+                                        <span className="hidden sm:inline">Export</span>
                                     </button>
                                 </div>
                             </div>
