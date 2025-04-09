@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('/download/template', [FileController::class, 'download'])->name('excel.template');
 
     Route::resource('/students', StudentController::class);

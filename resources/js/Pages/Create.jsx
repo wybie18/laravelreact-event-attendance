@@ -119,7 +119,6 @@ export default function Create() {
         const newTimeSlotId = e.target.value;
         setTimeSlotId(newTimeSlotId);
 
-        // Fetch stats for the new time slot
         const fetchStats = async () => {
             try {
                 const response = await axios.get(
@@ -175,7 +174,6 @@ export default function Create() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* Left Column - RFID Input */}
                     <div className="md:col-span-2">
                         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
                             <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
@@ -273,7 +271,6 @@ export default function Create() {
                         </div>
                     </div>
 
-                    {/* Right Column - Stats and Last Scanned */}
                     <div className="md:col-span-1">
                         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
                             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Last Scanned</h3>
