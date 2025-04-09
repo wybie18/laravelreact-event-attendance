@@ -36,6 +36,7 @@ export default function Show({ event }) {
         time.setHours(Number.parseInt(hours, 10))
         time.setMinutes(Number.parseInt(minutes, 10))
         return time.toLocaleTimeString("en-US", {
+            timeZone:'Asia/Manila',
             hour: "numeric",
             minute: "2-digit",
             hour12: true,

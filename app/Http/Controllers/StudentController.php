@@ -183,6 +183,7 @@ class StudentController extends Controller
 
         $semesterEvents = Event::with(['timeSlots'])
             ->when($semesterId, fn($q) => $q->where('semester_id', $semesterId))
+            ->orderBy('date', 'ASC')
             ->get();
 
         $students = Student::query()
@@ -253,6 +254,7 @@ class StudentController extends Controller
 
         $semesterEvents = Event::with(['timeSlots'])
             ->when($semesterId, fn($q) => $q->where('semester_id', $semesterId))
+            ->orderBy('date', 'ASC')
             ->get();
 
         $students = Student::query()
