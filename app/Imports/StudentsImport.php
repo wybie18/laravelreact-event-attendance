@@ -16,15 +16,21 @@ class StudentsImport implements ToModel, WithHeadingRow, WithValidation
 
     public function model(array $row)
     {
+        $email = $row['email'] ?? strtolower($row['last_name'] . '.' . $row['first_name'] . '@sfxc.edu.ph');
         return new Student([
             'student_id'  => $row['student_id'],
             'rfid_uid'    => $row['rfid_uid'],
             'last_name'   => $row['last_name'],
             'first_name'  => $row['first_name'],
             'middle_name' => $row['middle_name'] ?? null,
-            'email'       => $row['email'],
+            'email'       => $email,
             'year_level'  => $row['year_level'],
         ]);
+    }
+
+    public function headingRow(): int
+    {
+        return 2;
     }
 
     public function rules(): array
@@ -34,7 +40,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithValidation
             '*.rfid_uid'    => ['required', 'unique:students,rfid_uid'],
             '*.last_name'   => ['required', 'string', 'max:200'],
             '*.first_name'  => ['required', 'string', 'max:200'],
-            '*.email'       => ['required', 'email', 'unique:students,email'],
+            '*.email'       => ['nullable', 'email', 'unique:students,email'],
             '*.year_level'  => ['required', 'numeric'],
         ];
     }
