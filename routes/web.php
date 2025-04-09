@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
     Route::post('/attendances', [AttendanceController::class, 'store'])->name('attendances.store');
     Route::put('/attendances/{attendance}', [AttendanceController::class, 'update'])->name('attendances.update');
+    Route::delete('/attendances/{attendance}', [AttendanceController::class, 'destroy'])->name('attendances.destroy');
 
     Route::get('/records', [StudentController::class, 'records'])->name('records');
     Route::get('/records/export', [StudentController::class, 'exportRecords'])->name('records.export');
